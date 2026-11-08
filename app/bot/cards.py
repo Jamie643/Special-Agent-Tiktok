@@ -1,0 +1,28 @@
+"""Formats audit records into Telegram messages."""
+
+import html
+
+def format_internal_card(lead: dict, audit: dict) -> str:
+    brand = lead.get("brand") or lead.get("domain") or "Unknown brand"
+    domain = lead.get("domain", "")
+    days = lead.get("days_active") or "?"
+    page_uri = lead.get("page_profile_uri", "")
+    
+    card = (
+        f"🏪 <b>{html.escape(brand)}</b> — {html.escape(domain)}\n"
+        f"📅 TikTok ad: running {days} days\n\n"
+        f"🎯 <b>Diagnosis</b>\n{html.escape(audit['diagnosis'])}\n\n"
+        f"━━━━━━━━━━━━━━━\n"
+        f"📧 <b>THE EMAIL</b>\n\n"
+        f"<b>Subject:</b> {html.escape(audit['email_subject'])}\n\n"
+        f"<pre>{html.escape(audit['email_body'])}</pre>\n\n"
+    )
+    
+    if page_uri:
+        card += f"🔗 <a href='{html.escape(page_uri)}'>Search TikTok profile</a>\n"
+    
+    return card
+
+
+def format_email_block(audit: dict) -> str:
+    return f"SUBJECT: {audit['email_subject']}\n\n{audit['email_body']}"
