@@ -16,6 +16,6 @@ class Settings:
     # Warmbly API endpoint (fill this in once deployed)
     WARMBLY_WEBHOOK_URL: str = os.environ.get("WARMBLY_WEBHOOK_URL", "")
     
-    GEMINI_MODELS: list[str] = ["gemini-3.8-flash", "gemini-2.5-pro"]
-
+    GEMINI_MODELS: list[str] = ["gemini-3.8-flash", "gemini-3.1-pro-preview"]
+    
 settings = Settings()
